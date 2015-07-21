@@ -1,0 +1,77 @@
+
+<h1>Partidas#jugar</h1>
+<p>Find me in app/views/partidas/jugar.html.erb</p>
+<style type="text/css">
+	#map { 
+		height: 600px; 
+		width: 500px;
+		margin-left: auto;
+		margin-right: auto;}
+</style>
+ <div id="map"></div>
+ <div id="info"></div>
+
+ <script type="text/javascript">
+ 	var map = L.map('map').setView([-25, -60], 3);
+ 	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 10,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+ 	function highlightFeature(e) {
+	    var layer = e.target;
+
+	    layer.setStyle({
+	        fillOpacity: 0.7
+	    });
+
+	    if (!L.Browser.ie && !L.Browser.opera) {
+	        layer.bringToFront();
+	    }
+
+	    document.getElementById('info').innerHTML = layer.feature.properties.mensaje;
+	}
+	function resetHighlight(e) {
+	    var layer = e.target;
+
+	    layer.setStyle({ fillOpacity: 0.2 });
+
+	    if (!L.Browser.ie && !L.Browser.opera) {
+	        layer.bringToFront();
+	    }
+	};
+ 	function onEachFeature(feature, layer) {
+ 		layer.on({
+ 			mouseover: highlightFeature,
+ 			mouseout: resetHighlight
+ 		});
+ 		layer.bindPopup(feature.properties.mensaje);
+	}
+	function generarPaises(){
+		$.getJSON('/paises.json', function(data){
+			for(var i=0; i<data.length;i++){
+				var pais = {type: 'Feature', properties: {mensaje: '<h4>'+data[i].nombre+'</h4>'}, geometry: {type: 'Polygon', coordinates: [data[i].coordenadas]}};
+				var geoPais = L.geoJson(pais, {onEachFeature: onEachFeature, style: {color: '#666'}}).addTo(map);
+			}
+		});
+	}
+	// var uruguay = L.geoJson(uruguay, {onEachFeature: onEachFeature, style: {color: '#900'}});
+	// var label = new L.Label();
+	// label.setContent('50');
+	// label.setLatLng(uruguay.getBounds().getCenter());
+	// map.showLabel(label);
+	// uruguay.addTo(map);
+
+	// var argentina = L.geoJson(argentina, {style: {color: '#090'}}).addTo(map);
+	// var label = new L.Label();
+	// label.setContent('50');
+	// label.setLatLng(argentina.getBounds().getCenter());
+	// map.showLabel(label);
+	// uruguay.addTo(map);
+	generarPaises();
+	map.on('click', function(e) {
+	    console.log("["+ e.latlng.lng + ", " + e.latlng.lat + "],");
+	    L.marker(e.latlng).addTo(map);
+	});
+
+ </script>

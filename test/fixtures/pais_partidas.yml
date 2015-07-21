@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pais_id: 
+  jugador_id: 
+  ejercitos: 1
+
+two:
+  pais_id: 
+  jugador_id: 
+  ejercitos: 1

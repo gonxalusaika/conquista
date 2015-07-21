@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  usuario_id: 
+  partida_id: 
+  color: MyString
+  turno: 1
+
+two:
+  usuario_id: 
+  partida_id: 
+  color: MyString
+  turno: 1

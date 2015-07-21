@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Conquista</title>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css" />
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div id="banner" style="width: 100%; height: 190px; background: grey;"></div>
+	<nav id="nav">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div id="d"></div>
+	<p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+<%= yield %>
+
+<script type="text/javascript">
+	window.onscroll = function() {
+	  var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+	  if (scrollTop >= document.getElementById("d").offsetTop) {
+	    document.getElementById("nav").style.position = "fixed";
+	    document.getElementById("d").style.marginTop = "50px";
+	    document.getElementById("nav").style.marginTop = "-"+document.getElementById("banner").style.height;
+	  } else {
+	    document.getElementById("nav").style.position = "static";
+	    document.getElementById("d").style.marginTop = "0px";
+	    document.getElementById("nav").style.marginTop = "0px";
+	  }
+	}
+</script>
+</body>
+</html>
